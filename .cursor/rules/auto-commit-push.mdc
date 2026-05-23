@@ -9,14 +9,15 @@ After every **completed** user-requested project change:
 
 1. Run `git status`, `git branch --show-current`, `git diff --stat`
 2. If there are safe changes: `git add .` → `git commit -m "..."` → `git push`
-3. **No co-author trailers** — never add `Co-authored-by:` (including `Co-authored-by: Cursor <cursoragent@cursor.com>`) to commit messages or trailers. Use a plain single-line `-m` message only.
-4. Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`, `build:`, `ci:`, `perf:`
-5. Do **not** ask before commit/push unless: merge conflict, secrets at risk, push auth fails, protected branch, destructive command, unclear branch/remotes
-6. Never run: `git reset --hard`, `git clean -fd`, `git push --force`, `git push --force-with-lease`, `git rebase`, `git branch -D`, `git branch -d`
-7. No upstream: `git push -u origin $(git branch --show-current)`
-8. Remote ahead: `git pull` then `git push`; on conflicts, stop and report files
-9. No changes: say "No Git changes found, so nothing was committed or pushed."
-10. Never commit `.env`, credentials, `node_modules/`, `target/`, session folders, or secrets from `application.yml`
+3. **Terminal permissions (always)** — run `git commit`, `git pull`, and `git push` via Shell with `required_permissions: ["git_write", "all"]` on the first attempt. Do not run push/commit in the sandbox and retry only after failure; request permissions up front. Do not ask the user to approve terminal access manually unless the tool rejects the request.
+4. **No co-author trailers** — never add `Co-authored-by:` to commit messages or trailers. Use a plain single-line `-m` message only.
+5. Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`, `build:`, `ci:`, `perf:`
+6. Do **not** ask before commit/push unless: merge conflict, secrets at risk, push auth fails, protected branch, destructive command, unclear branch/remotes
+7. Never run: `git reset --hard`, `git clean -fd`, `git push --force`, `git push --force-with-lease`, `git rebase`, `git branch -D`, `git branch -d`
+8. No upstream: `git push -u origin $(git branch --show-current)`
+9. Remote ahead: `git pull` then `git push`; on conflicts, stop and report files
+10. No changes: say "No Git changes found, so nothing was committed or pushed."
+11. Never commit `.env`, credentials, `node_modules/`, `target/`, session folders, or secrets from `application.yml`
 
 On success, end with:
 
