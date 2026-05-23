@@ -1,0 +1,43 @@
+---
+description: Minimize tokens — read less, search narrowly, edit small, reply briefly
+alwaysApply: true
+---
+
+# Token budget (~75% reduction)
+
+Default to the **smallest** context and output that still completes the task correctly.
+
+## Reading
+
+- Open only files **directly** needed for the current step; skip “exploratory” reads.
+- Prefer `grep` / targeted search over reading whole directories.
+- Do **not** open large files (generated code, lockfiles, bundles, logs, minified assets) unless the task **requires** them; if required, read a **line range** or search inside them.
+- Do not re-read files already in context unless they changed or you need a specific line.
+
+## Search
+
+- Scope searches to likely paths (e.g. `src/auth/**`, `*.ts`) — not the whole repo unless unknown.
+- One precise query beats many broad ones.
+
+## Responses
+
+- **Short by default**: answer the question, then stop. No preamble, no recap of the request, no “here’s what I did” unless asked.
+- **Summarize** behavior and decisions; do **not** paste long code blocks.
+- When citing code, use minimal line ranges; skip irrelevant lines with `...`.
+- Omit unrelated files, history, or tangents.
+
+## Edits
+
+- **Smallest correct diff**: change only what the task needs.
+- Prefer **surgical patches** (`search_replace`, localized hunks) over rewriting entire files.
+- Do not refactor, rename, or “clean up” outside the request.
+- Do not add comments, tests, or docs unless requested.
+
+## Tool discipline
+
+- Batch independent lookups; avoid duplicate tool calls.
+- Stop gathering context once you can act; do not read “just in case.”
+
+## When more detail is needed
+
+Expand only if the user asks, the change is risky/ambiguous, or a short answer would be wrong.
