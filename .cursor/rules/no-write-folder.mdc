@@ -1,0 +1,44 @@
+---
+description: Treat path/to/folder as read-only — no AI writes, edits, deletes, renames, or moves
+alwaysApply: true
+---
+
+# Protected folder (read-only for AI)
+
+The directory `path/to/folder/**` is **read-only** for the AI. Do not create, edit, delete, rename, or move any file or subdirectory under that path.
+
+## Allowed
+
+- **Read** files under `path/to/folder/**` for context, search, explanation, and debugging.
+- Reference or cite content from those files in responses.
+
+## Forbidden
+
+- Creating new files or directories under `path/to/folder/**`
+- Editing existing files under `path/to/folder/**`
+- Deleting files or directories under `path/to/folder/**`
+- Renaming or moving anything under `path/to/folder/**`
+- Shell or tool commands that would modify that tree (e.g. `rm`, `mv`, `cp` into it, redirects that overwrite files there)
+
+## Before every change
+
+1. Resolve the **full path** of each file you are about to create, edit, delete, rename, or move.
+2. If the path is under `path/to/folder/` (any depth), **do not proceed** with that change.
+3. Apply the same check to indirect effects (imports, generated output, scripts, git operations) that would touch that folder.
+
+## When the task requires writes there
+
+If the user’s request **requires** changes inside `path/to/folder/**`:
+
+1. **Stop** — do not modify anything in that folder.
+2. **Explain** that `path/to/folder` is protected by project rule `.cursor/rules/no-write-folder.mdc` and is read-only for the AI.
+3. Say what would need to change and ask the user to apply it manually or adjust the rule/path if writes should be allowed.
+
+## Examples
+
+| Path | AI may write? |
+|------|----------------|
+| `path/to/folder/config.json` | No |
+| `path/to/folder/subdir/app.ts` | No |
+| `src/main.ts` | Yes (outside protected tree) |
+| `path/to/folder-backup/file.txt` | Yes (different path; not under `path/to/folder/`) |
