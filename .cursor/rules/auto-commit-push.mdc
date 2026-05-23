@@ -9,13 +9,14 @@ After every **completed** user-requested project change:
 
 1. Run `git status`, `git branch --show-current`, `git diff --stat`
 2. If there are safe changes: `git add .` → `git commit -m "..."` → `git push`
-3. Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`, `build:`, `ci:`, `perf:`
-4. Do **not** ask before commit/push unless: merge conflict, secrets at risk, push auth fails, protected branch, destructive command, unclear branch/remotes
-5. Never run: `git reset --hard`, `git clean -fd`, `git push --force`, `git push --force-with-lease`, `git rebase`, `git branch -D`, `git branch -d`
-6. No upstream: `git push -u origin $(git branch --show-current)`
-7. Remote ahead: `git pull` then `git push`; on conflicts, stop and report files
-8. No changes: say "No Git changes found, so nothing was committed or pushed."
-9. Never commit `.env`, credentials, `node_modules/`, `target/`, session folders, or secrets from `application.yml`
+3. **No co-author trailers** — never add `Co-authored-by:` (including `Co-authored-by: Cursor <cursoragent@cursor.com>`) to commit messages or trailers. Use a plain single-line `-m` message only.
+4. Use conventional commit prefixes: `feat:`, `fix:`, `docs:`, `style:`, `refactor:`, `test:`, `chore:`, `build:`, `ci:`, `perf:`
+5. Do **not** ask before commit/push unless: merge conflict, secrets at risk, push auth fails, protected branch, destructive command, unclear branch/remotes
+6. Never run: `git reset --hard`, `git clean -fd`, `git push --force`, `git push --force-with-lease`, `git rebase`, `git branch -D`, `git branch -d`
+7. No upstream: `git push -u origin $(git branch --show-current)`
+8. Remote ahead: `git pull` then `git push`; on conflicts, stop and report files
+9. No changes: say "No Git changes found, so nothing was committed or pushed."
+10. Never commit `.env`, credentials, `node_modules/`, `target/`, session folders, or secrets from `application.yml`
 
 On success, end with:
 
